@@ -21,6 +21,7 @@ async function toNpm() {
     }
   });
 
+  shell.env.NPM_TOKEN = process.env.NPM_TOKEN;
   if (shell.exec(`npm publish`).code === 0) {
     console.log(`npm publish ${repo} ${version} successful`);
   } else {
