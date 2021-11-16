@@ -1,4 +1,4 @@
-import { toGitHub } from './scripts/index.js';
+import { toGitHub } from '../scripts/index.js';
 
 (async () => {
   toGitHub();

@@ -1,4 +1,4 @@
-import { toNpm } from './scripts/index.js';
+import { toNpm } from '../scripts/index.js';
 
 (async () => {
   toNpm();
