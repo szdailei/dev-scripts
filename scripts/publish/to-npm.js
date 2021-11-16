@@ -4,6 +4,8 @@ import shell from 'shelljs';
 import releaseInfo from './release-info.js';
 import { isLocalRepoUpdated } from './update-repo.js';
 
+const npmRegistry = 'https://registry.npmjs.org/';
+
 async function toNpm() {
   if (!isLocalRepoUpdated()) {
     console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
@@ -21,7 +23,7 @@ async function toNpm() {
     }
   });
 
-  shell.env.NPM_TOKEN = process.env.NPM_TOKEN;
+  shell.env.npm_config_registry = npmRegistry;
   if (shell.exec(`npm publish`).code === 0) {
     console.log(`npm publish ${repo} ${version} successful`);
   } else {
