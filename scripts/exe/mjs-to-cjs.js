@@ -7,7 +7,7 @@ import buildCliServer from './build-cli-server.js';
 async function toCjs(mjsFile, cjsFile) {
   const options = {
     compact: true,
-    plugins: ['@babel/plugin-transform-modules-commonjs', 'babel-plugin-transform-import-meta'],
+    plugins: ['@babel/plugin-transform-modules-commonjs', '@babel/plugin-syntax-import-meta'],
   };
 
   const source = await fs.promises.readFile(mjsFile, 'utf8');
