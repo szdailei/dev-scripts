@@ -13,7 +13,7 @@ async function cleanApp() {
   }
 }
 
-async function buildApp() {
+async function buildApp({ appJsxFile } = {}) {
   const { srcOfClient, srcOfHtml, destOfWeb } = await getStructure();
 
   const browserPlugins = [...plugins];
@@ -31,8 +31,10 @@ async function buildApp() {
     })
   );
 
+  const inputFile = appJsxFile || 'app.jsx';
+
   const inputOptions = {
-    input: join(srcOfClient, 'app.jsx'),
+    input: join(srcOfClient, inputFile),
     plugins: browserPlugins,
   };
 
@@ -46,6 +48,8 @@ async function buildApp() {
   await rollupBuild(inputOptions, outputOptions);
 
   shell.cp('-R', srcOfHtml, destOfWeb);
+
+  return destOfWeb
 }
 
 export { buildApp, cleanApp };
