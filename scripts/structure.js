@@ -55,6 +55,7 @@ function getAbsoluteStructureByStruc(struc) {
   const srcOfHtml = join(root, struc.srcOfHtml);
 
   const test = join(root, struc.test);
+  const cli = join(root, struc.cli);
 
   return {
     root,
@@ -65,6 +66,7 @@ function getAbsoluteStructureByStruc(struc) {
     srcOfDebug,
     srcOfHtml,
     test,
+    cli
   };
 }
 

@@ -11,7 +11,7 @@ const plugins = [
     'process.env.NODE_ENV': JSON.stringify(compileMode),
     preventAssignment: true,
     delimiters: ['', ''],
-    '#!/usr/bin/env node': '',
+    '#!/usr/bin/env node': ''
   }),
   commonjs(),
 ];

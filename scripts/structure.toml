@@ -7,3 +7,5 @@ srcOfDebug = "src/debug/"
 srcOfHtml = "src/client/html/*"
 
 test = "test/"
+
+cli = 'cli/'
