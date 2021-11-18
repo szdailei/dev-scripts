@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 import builtinModules from 'builtin-modules';
 import shell from 'shelljs';
 import { getStructure } from '../structure.js';
-import { plugins, rollupBuild } from './rollup.js';
+import { inputPlugins, rollupBuild } from './rollup.js';
 
 async function cleanCliServer() {
   const { dest } = await getStructure();
@@ -16,7 +16,7 @@ async function cleanCliServer() {
 async function buildCliServer() {
   const { cli, dest } = await getStructure();
 
-  const nodePlugins = [...plugins];
+  const nodePlugins = [...inputPlugins];
   const inputOptions = {
     input: join(cli, 'cli-server.js'),
     plugins: nodePlugins,

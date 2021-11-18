@@ -5,13 +5,13 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 
 const compileMode = process.env.NODE_ENV;
-const plugins = [
+const inputPlugins = [
   nodeResolve({ extensions: ['.mjs', '.js', '.jsx'], preferBuiltins: false }),
   replace({
     'process.env.NODE_ENV': JSON.stringify(compileMode),
     preventAssignment: true,
     delimiters: ['', ''],
-    '#!/usr/bin/env node': ''
+    '#!/usr/bin/env node': '',
   }),
   commonjs(),
 ];
@@ -23,11 +23,12 @@ async function rollupBuild(inputOptions, outputOptions) {
   const prodOutputOptions = { ...outputOptions, sourcemap };
 
   if (process.env.NODE_ENV === 'production') {
-    inputOptions.plugins.push(terser());
+    const outputPlugins = [terser({ keep_fnames: true })];
+    prodOutputOptions.plugins = outputPlugins;
   }
 
   await bundle.write(prodOutputOptions);
   await bundle.close();
 }
 
-export { plugins, rollupBuild };
+export { inputPlugins, rollupBuild };

@@ -4,7 +4,7 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import shell from 'shelljs';
 import { getStructure } from '../structure.js';
-import { plugins, rollupBuild } from './rollup.js';
+import { inputPlugins, rollupBuild } from './rollup.js';
 
 async function cleanApp() {
   const { destOfWeb } = await getStructure();
@@ -16,7 +16,7 @@ async function cleanApp() {
 async function buildApp({ appJsxFile } = {}) {
   const { srcOfClient, srcOfHtml, destOfWeb } = await getStructure();
 
-  const browserPlugins = [...plugins];
+  const browserPlugins = [...inputPlugins];
   browserPlugins.push(
     postcss({
       plugins: [],

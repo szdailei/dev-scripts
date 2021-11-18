@@ -1,9 +1,9 @@
-import { buildCliServer, cleanCliServer, buildApp, cleanApp } from '../scripts/index.js';
+import { buildServer, cleanServer, buildApp, cleanApp } from '../scripts/index.js';
 
 (async () => {
-  cleanCliServer();
+  cleanServer();
   cleanApp();
 
-  await buildCliServer();
+  await buildServer();
   await buildApp();
 })();

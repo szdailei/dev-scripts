@@ -5,7 +5,7 @@ import replace from '@rollup/plugin-replace';
 import json from '@rollup/plugin-json';
 import shell from 'shelljs';
 import { getStructure } from '../structure.js';
-import { plugins, rollupBuild } from './rollup.js';
+import { inputPlugins, rollupBuild } from './rollup.js';
 
 async function cleanPdf() {
   const { dest } = await getStructure();
@@ -22,12 +22,20 @@ async function cleanPdf() {
 }
 
 async function buildPdfOfMjsFormat() {
-  const { dest, cli } = await getStructure();
+  const { dest, test } = await getStructure();
 
-  const nodePlugins = [...plugins, json()];
+  const nodePlugins = [...inputPlugins, json()];
+
+  let indexOfReplace
+  for (let i =0;i<nodePlugins.length;i+=1){
+    if (nodePlugins[i].name === 'replace') {
+      indexOfReplace = i
+      break
+    }
+  }
 
   const compileMode = process.env.NODE_ENV;
-  nodePlugins[1] =   replace({
+  nodePlugins[indexOfReplace] =   replace({
     'process.env.NODE_ENV': JSON.stringify(compileMode),
     preventAssignment: true,
     delimiters: ['', ''],
@@ -38,7 +46,7 @@ async function buildPdfOfMjsFormat() {
   })
 
   const inputOptions = {
-    input: join(cli, 'cli-pdf.js'),
+    input: join(test, 'export-pdf.js'),
     plugins: nodePlugins,
     external: builtinModules,
     treeshake: {
@@ -51,7 +59,7 @@ async function buildPdfOfMjsFormat() {
   const outputOptions = {
     dir: dest,
     format: 'esm',
-    entryFileNames: 'cli-pdf.js',
+    entryFileNames: 'export-pdf.js',
     chunkFileNames: '[name]-[hash].js',
   };
 
