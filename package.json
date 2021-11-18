@@ -20,7 +20,7 @@
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.mjs,.cjs,.ts,.tsx",
-    "release-info": "node cli/cli-gen-release-note.js",
+    "release": "node cli/cli-gen-release-note.js",
     "to-github": "node cli/cli-to-github.js",
     "to-npm": "node cli/cli-to-npm.js"
   },
