@@ -3,7 +3,7 @@
 import fs from 'fs';
 import { Octokit } from '@octokit/rest';
 import releaseInfo from './release-info.js';
-import { isLocalRepoUpdated, addTagToLocalRepo, pushToRemoteRepo } from './update-repo.js';
+import { updateGitIndex, addTagToLocalRepo, pushToRemoteRepo } from './update-repo.js';
 
 function removeTheFirstLineOfReleaseNote(origRelaseNote) {
   let releaseNote = '';
@@ -36,7 +36,7 @@ async function toGitHub() {
     process.exit(1);
   }
 
-  if (!isLocalRepoUpdated()) {
+  if (updateGitIndex().code !==0   ) {
     console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
     process.exit(1);
   }

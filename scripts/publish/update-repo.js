@@ -1,11 +1,8 @@
 /* eslint-disable no-console */
 import shell from 'shelljs';
 
-function isLocalRepoUpdated() {
-  if (shell.exec('git update-index --refresh').code === 0) {
-    return true;
-  }
-  return false;
+function updateGitIndex() {
+    return shell.exec('git update-index --refresh')
 }
 
 function addTagToLocalRepo(version) {
@@ -22,4 +19,4 @@ function pushToRemoteRepo() {
   }
 }
 
-export { isLocalRepoUpdated, addTagToLocalRepo, pushToRemoteRepo };
+export { updateGitIndex, addTagToLocalRepo, pushToRemoteRepo };
