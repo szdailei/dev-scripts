@@ -44,9 +44,7 @@ function switchToDevBranch() {
 }
 
 function mergeDevBranch() {
-  const res= shell.exec(`git merge ${devBranch}`)
-  console.log("res",res)
-   {
+  if (shell.exec(`git merge ${devBranch}`).code !== 0) {
     console.log(`Error: Failure merge ${devBranch} branch`);
     process.exit(1);
   }

@@ -28,9 +28,9 @@ async function toGitHub() {
   if (isMajorOrMinorRelease(version)) {
     switchToMainBranch();
     mergeDevBranch();
-    return
     pushToRemoteRepo();
     switchToDevBranch();
+    console.log("END")
 
     process.exit(1);
     console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
