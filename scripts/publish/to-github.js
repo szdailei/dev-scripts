@@ -20,13 +20,13 @@ function removeTheFirstLineOfReleaseNote(origRelaseNote) {
 
 function isMajorOrMinorRelease(version) {
   const fields = version.split('.');
-  if (fields[2].trim() === '0') return false;
-  return true;
+  if (fields[2].trim() === '0') return true;
+  return false;
 }
 
 function switchToGitBranch(branch) {
   if (shell.exec(`git switch ${branch}`).code === 0) return;
-  console.log(`Error: Failure switch to ${branch}`);
+  console.log(`Error: Failure switch to ${branch} branch`);
   process.exit(1);
 }
 
