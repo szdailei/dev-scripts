@@ -25,20 +25,6 @@ function removeTheFirstLineOfReleaseNote(origRelaseNote) {
 async function toGitHub() {
   const { repo, owner, version, tag_name, name, releaseNotefileName } = await releaseInfo();
 
-  if (isMajorOrMinorRelease(version)) {
-    switchToMainBranch();
-    mergeDevBranch();
-    pushToRemoteRepo();
-    switchToDevBranch();
-    console.log("END")
-
-    process.exit(1);
-    console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
-    process.exit(1);
-  }
-  console.log('is');
-  process.exit(1);
-
   try {
     fs.statSync(releaseNotefileName);
   } catch (error) {
@@ -64,11 +50,11 @@ async function toGitHub() {
   }
 
   if (isMajorOrMinorRelease(version)) {
-    process.exit(1);
-    console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
-    process.exit(1);
+    switchToMainBranch();
+    mergeDevBranch();
+    pushToRemoteRepo();
+    switchToDevBranch();
   }
-  process.exit(1);
 
   addTagToLocalRepo(version);
   pushToRemoteRepo();
