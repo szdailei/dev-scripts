@@ -49,7 +49,7 @@ async function buildApp({ appJsxFile } = {}) {
 
   shell.cp('-R', srcOfHtml, destOfWeb);
 
-  return destOfWeb
+  return destOfWeb;
 }
 
 export { buildApp, cleanApp };

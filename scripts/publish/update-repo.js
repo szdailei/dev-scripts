@@ -2,7 +2,7 @@
 import shell from 'shelljs';
 
 function updateGitIndex() {
-    return shell.exec('git update-index --refresh')
+  return shell.exec('git update-index --refresh');
 }
 
 function addTagToLocalRepo(version) {

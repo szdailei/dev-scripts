@@ -26,24 +26,25 @@ async function buildPdfOfMjsFormat() {
 
   const nodePlugins = [...inputPlugins, json()];
 
-  let indexOfReplace
-  for (let i =0;i<nodePlugins.length;i+=1){
+  let indexOfReplace;
+  for (let i = 0; i < nodePlugins.length; i += 1) {
     if (nodePlugins[i].name === 'replace') {
-      indexOfReplace = i
-      break
+      indexOfReplace = i;
+      break;
     }
   }
 
   const compileMode = process.env.NODE_ENV;
-  nodePlugins[indexOfReplace] =   replace({
+  nodePlugins[indexOfReplace] = replace({
     'process.env.NODE_ENV': JSON.stringify(compileMode),
     preventAssignment: true,
     delimiters: ['', ''],
     '#!/usr/bin/env node': '',
-    'const puppeteerRootDirectory = pkgDir.sync(__dirname)':'const puppeteerRootDirectory = pkgDir.sync(process.cwd())',
-    "const pkg = require('../../../../package.json')":"const pkg ={version:'1.0.0'}",
-    "return require('debug')(prefix)":"return (function dummmy(){})"
-  })
+    'const puppeteerRootDirectory = pkgDir.sync(__dirname)':
+      'const puppeteerRootDirectory = pkgDir.sync(process.cwd())',
+    "const pkg = require('../../../../package.json')": "const pkg ={version:'1.0.0'}",
+    "return require('debug')(prefix)": 'return (function dummmy(){})',
+  });
 
   const inputOptions = {
     input: join(test, 'export-pdf.js'),

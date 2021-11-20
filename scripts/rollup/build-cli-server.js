@@ -33,4 +33,4 @@ async function buildCliServer() {
   await rollupBuild(inputOptions, outputOptions);
 }
 
-export {buildCliServer,cleanCliServer}
+export { buildCliServer, cleanCliServer };

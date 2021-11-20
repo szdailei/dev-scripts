@@ -36,7 +36,7 @@ async function toGitHub() {
     process.exit(1);
   }
 
-  if (updateGitIndex().code !==0   ) {
+  if (updateGitIndex().code !== 0) {
     console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
     process.exit(1);
   }

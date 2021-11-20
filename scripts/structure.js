@@ -66,7 +66,7 @@ function getAbsoluteStructureByStruc(struc) {
     srcOfDebug,
     srcOfHtml,
     test,
-    cli
+    cli,
   };
 }
 
