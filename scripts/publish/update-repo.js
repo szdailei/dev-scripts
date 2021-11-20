@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 import shell from 'shelljs';
 
+const mainBranch = 'main';
+const devBranch = 'dev';
+
 function updateGitIndex() {
   return shell.exec('git update-index --refresh');
 }
@@ -19,4 +22,42 @@ function pushToRemoteRepo() {
   }
 }
 
-export { updateGitIndex, addTagToLocalRepo, pushToRemoteRepo };
+function isMajorOrMinorRelease(version) {
+  const fields = version.split('.');
+  if (fields[2].trim() === '0') return true;
+  return false;
+}
+
+function switchToGitBranch(branch) {
+  if (shell.exec(`git switch ${branch}`).code !== 0) {
+    console.log(`Error: Failure switch to ${branch} branch`);
+    process.exit(1);
+  }
+}
+
+function switchToMainBranch() {
+  switchToGitBranch(mainBranch);
+}
+
+function switchToDevBranch() {
+  switchToGitBranch(devBranch);
+}
+
+function mergeDevBranch() {
+  const res= shell.exec(`git merge ${devBranch}`)
+  console.log("res",res)
+   {
+    console.log(`Error: Failure merge ${devBranch} branch`);
+    process.exit(1);
+  }
+}
+
+export {
+  updateGitIndex,
+  addTagToLocalRepo,
+  pushToRemoteRepo,
+  isMajorOrMinorRelease,
+  switchToMainBranch,
+  switchToDevBranch,
+  mergeDevBranch,
+};

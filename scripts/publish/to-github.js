@@ -1,13 +1,17 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 import fs from 'fs';
-import shell from 'shelljs';
 import { Octokit } from '@octokit/rest';
 import releaseInfo from './release-info.js';
-import { updateGitIndex, addTagToLocalRepo, pushToRemoteRepo } from './update-repo.js';
-
-const mainBranch = 'main';
-const devBranch = 'dev';
+import {
+  updateGitIndex,
+  addTagToLocalRepo,
+  pushToRemoteRepo,
+  isMajorOrMinorRelease,
+  switchToMainBranch,
+  switchToDevBranch,
+  mergeDevBranch,
+} from './update-repo.js';
 
 function removeTheFirstLineOfReleaseNote(origRelaseNote) {
   let releaseNote = '';
@@ -18,31 +22,15 @@ function removeTheFirstLineOfReleaseNote(origRelaseNote) {
   return releaseNote;
 }
 
-function isMajorOrMinorRelease(version) {
-  const fields = version.split('.');
-  if (fields[2].trim() === '0') return true;
-  return false;
-}
-
-function switchToGitBranch(branch) {
-  if (shell.exec(`git switch ${branch}`).code === 0) return;
-  console.log(`Error: Failure switch to ${branch} branch`);
-  process.exit(1);
-}
-
-function pushToMainBranch() {
-  const res = shell.exec(`git push`)
-  console.log("res",res)
-  console.log(`Error: Failure push to main branch`);
-  process.exit(1);
-}
-
 async function toGitHub() {
   const { repo, owner, version, tag_name, name, releaseNotefileName } = await releaseInfo();
 
   if (isMajorOrMinorRelease(version)) {
-    switchToGitBranch(mainBranch);
-    pushToMainBranch()
+    switchToMainBranch();
+    mergeDevBranch();
+    return
+    pushToRemoteRepo();
+    switchToDevBranch();
 
     process.exit(1);
     console.log('Error: There is uncommitted changes, please "git add . && git-cz" before publish');
