@@ -14,11 +14,11 @@ async function cleanCliServer() {
 }
 
 async function buildCliServer() {
-  const { cli, dest } = await getStructure();
+  const { root, dest } = await getStructure();
 
   const nodePlugins = [...inputPlugins];
   const inputOptions = {
-    input: join(cli, 'cli-server.js'),
+    input: join(root, 'cli-server.js'),
     plugins: nodePlugins,
     external: builtinModules,
   };

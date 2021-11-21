@@ -6,12 +6,15 @@ import { getStructure } from '../structure.js';
 async function buildCliCjsServer(mjsFile, cjsFile) {
   const options = {
     compact: true,
-    plugins: ['babel-plugin-transform-import-meta', '@babel/plugin-transform-modules-commonjs'],
-    sourceType: 'module',
+    plugins: ['@babel/plugin-transform-modules-commonjs'],
   };
 
   const mjsCode = await fs.promises.readFile(mjsFile, 'utf8');
-  const { code } = transformSync(mjsCode, options);
+  const mjsCodeWithoutImportMeta = mjsCode.replace(
+    'import.meta.url',
+    `require('url').pathToFileURL(__filename).toString()`
+  );
+  const { code } = transformSync(mjsCodeWithoutImportMeta, options);
   await fs.promises.writeFile(cjsFile, code);
 }
 
