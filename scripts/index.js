@@ -1,7 +1,7 @@
 import watch from './watch/watch.js';
 import { buildServer, cleanServer } from './rollup/build-server.js';
 import { buildCliServer, cleanCliServer } from './rollup/build-cli-server.js';
-import { buildApp, cleanApp } from './rollup/build-app.js';
+import { buildClient, cleanClient } from './rollup/build-client.js';
 import genReleaseNote from './publish/gen-release-note.js';
 import toGitHub from './publish/to-github.js';
 import toNpm from './publish/to-npm.js';
@@ -14,8 +14,8 @@ export {
   cleanCliServer,
   buildServer,
   cleanServer,
-  buildApp,
-  cleanApp,
+  buildClient,
+  cleanClient,
   genReleaseNote,
   toGitHub,
   toNpm,

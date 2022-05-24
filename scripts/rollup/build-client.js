@@ -6,19 +6,20 @@ import shell from 'shelljs';
 import { getStructure } from '../structure.js';
 import { inputPlugins, rollupBuild } from './rollup.js';
 
-async function cleanApp() {
+async function cleanClient() {
   const { destOfWeb } = await getStructure();
   if (existsSync(destOfWeb)) {
     shell.rm('-rf', destOfWeb);
   }
 }
 
-async function buildApp({ appJsxFile } = {}) {
+async function buildClient({ appJsxFile } = {}) {
   const { srcOfClient, srcOfHtml, destOfWeb } = await getStructure();
 
   const browserPlugins = [...inputPlugins];
   browserPlugins.push(
     postcss({
+      extract: true,
       plugins: [],
     })
   );
@@ -52,4 +53,4 @@ async function buildApp({ appJsxFile } = {}) {
   return destOfWeb;
 }
 
-export { buildApp, cleanApp };
+export { buildClient, cleanClient };

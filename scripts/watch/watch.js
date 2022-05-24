@@ -1,7 +1,7 @@
 import { join } from 'path';
 import chokidar from 'chokidar';
 import { getStructure } from '../structure.js';
-import { buildApp, cleanApp } from '../rollup/build-app.js';
+import { buildClient, cleanClient } from '../rollup/build-client.js';
 import { buildServer, cleanServer } from '../rollup/build-server.js';
 import Complier from './Complier.js';
 
@@ -27,7 +27,7 @@ async function watch() {
     compiled: false,
   };
 
-  const clientComplier = new Complier('client', [srcOfClient, srcOfDebug], cleanApp, buildApp, { ...options });
+  const clientComplier = new Complier('client', [srcOfClient, srcOfDebug], cleanClient, buildClient, { ...options });
   const serverComplier = new Complier('server', [srcOfServer, srcOfDebug], cleanServer, buildServer, { ...options });
 
   const compilers = [clientComplier, serverComplier];
