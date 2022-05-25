@@ -8,21 +8,14 @@ import { getStructure } from '../structure.js';
 import { inputPlugins, rollupBuild } from './rollup.js';
 
 async function cleanPdf() {
-  const { dest } = await getStructure();
-
-  const destServerFile = join(dest, 'cli-pdf.js');
-  if (existsSync(destServerFile)) {
-    shell.rm(destServerFile);
-  }
-
-  const destServerFileOfCjs = join(dest, 'cli-pdf.cjs');
-  if (existsSync(destServerFileOfCjs)) {
-    shell.rm(destServerFileOfCjs);
+  const { destOfPdf } = await getStructure();
+  if (existsSync(destOfPdf)) {
+    shell.rm('-rf', destOfPdf);
   }
 }
 
 async function buildPdfOfMjsFormat() {
-  const { dest, test } = await getStructure();
+  const { destOfPdf, test } = await getStructure();
 
   const nodePlugins = [...inputPlugins, json()];
 
@@ -53,7 +46,7 @@ async function buildPdfOfMjsFormat() {
   };
 
   const outputOptions = {
-    dir: dest,
+    dir: destOfPdf,
     format: 'esm',
     entryFileNames: 'export-pdf.js'
   };

@@ -1,5 +1,6 @@
 dest = "dist/"
 destOfWeb = "dist/web/"
+destOfPdf = "dist/pdf/"
 
 srcOfServer = "src/server"
 srcOfClient = "src/client/"

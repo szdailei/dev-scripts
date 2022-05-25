@@ -48,6 +48,7 @@ function getAbsoluteStructureByStruc(struc) {
 
   const dest = join(root, struc.dest);
   const destOfWeb = join(root, struc.destOfWeb);
+  const destOfPdf = join(root, struc.destOfPdf);
 
   const srcOfServer = join(root, struc.srcOfServer);
   const srcOfClient = join(root, struc.srcOfClient);
@@ -61,6 +62,7 @@ function getAbsoluteStructureByStruc(struc) {
     root,
     dest,
     destOfWeb,
+    destOfPdf,
     srcOfServer,
     srcOfClient,
     srcOfDebug,
