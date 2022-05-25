@@ -32,16 +32,7 @@ async function toNpm() {
     }
   }
 
-  const { repo, version, files } = await releaseInfo();
-
-  files.forEach((file) => {
-    try {
-      fs.statSync(file);
-    } catch (error) {
-      console.log(`Error: ${file} not found. You MUST build it`);
-      process.exit(1);
-    }
-  });
+  const { repo, version } = await releaseInfo();
 
   shell.env.npm_config_registry = npmRegistry;
   if (shell.exec(`npm publish`).code === 0) {

@@ -49,19 +49,13 @@ async function buildPdfOfMjsFormat() {
   const inputOptions = {
     input: join(test, 'export-pdf.js'),
     plugins: nodePlugins,
-    external: builtinModules,
-    treeshake: {
-      preset: 'smallest',
-      propertyReadSideEffects: false,
-      unknownGlobalSideEffects: false,
-    },
+    external: builtinModules
   };
 
   const outputOptions = {
     dir: dest,
     format: 'esm',
-    entryFileNames: 'export-pdf.js',
-    chunkFileNames: '[name]-[hash].js',
+    entryFileNames: 'export-pdf.js'
   };
 
   await rollupBuild(inputOptions, outputOptions);
