@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 import { createWriteStream } from 'fs';
-import changelog from 'conventional-changelog';
+import changelog from 'conventional-changelog-core';
 import releaseInfo from './release-info.js';
 
 async function genReleaseNote() {
