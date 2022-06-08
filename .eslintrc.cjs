@@ -3,7 +3,7 @@ module.exports = {
   parserOptions: {
     requireConfigFile: false,
     sourceType: 'module',
-    ecmaVersion: 12,
+    ecmaVersion: 'latest',
     ecmaFeatures: {
       jsx: true,
     },
@@ -15,11 +15,7 @@ module.exports = {
     serviceworker: true,
     jest: true,
   },
-  settings: {
-    react: {
-      version: '17.0',
-    },
-  },
+  settings: {},
   extends: ['airbnb', 'plugin:react-hooks/recommended', 'prettier'],
   rules: {
     'import/extensions': 'off',

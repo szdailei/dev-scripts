@@ -42,13 +42,13 @@ async function buildPdfOfMjsFormat() {
   const inputOptions = {
     input: join(test, 'export-pdf.js'),
     plugins: nodePlugins,
-    external: builtinModules
+    external: builtinModules,
   };
 
   const outputOptions = {
     dir: destOfPdf,
     format: 'esm',
-    entryFileNames: 'export-pdf.js'
+    entryFileNames: 'export-pdf.js',
   };
 
   await rollupBuild(inputOptions, outputOptions);

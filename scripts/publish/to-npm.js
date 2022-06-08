@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import fs from 'fs';
 import shell from 'shelljs';
 import releaseInfo from './release-info.js';
 import { updateGitIndex } from './update-repo.js';
